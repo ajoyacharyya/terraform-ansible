@@ -22,6 +22,12 @@ spec:
     - name: source
       workspace: source
     params:
+     - name: buildRevision
+       value: $(params.buildRevision)
+     - name: terraformGitURL
+       value: $(params.terraformGitURL)
+     - name: terraformFolder
+       value: $(params.terraformFolder)
      - name: terraform-secret
        value: "terraform-secret"
      - name: ARGS
