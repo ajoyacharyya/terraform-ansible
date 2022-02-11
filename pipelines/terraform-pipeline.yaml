@@ -1,0 +1,29 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: terraform-cli-example
+spec:
+  params:
+  - name: buildRevision
+    description: The revision of the build, i.e. the commit revision of the application repository
+  - name: terraformGitURL
+    description: The Terraform repository
+  - name: terraformFolder
+    description: The Sub directory where terraform file exist
+  - name: appImage
+    description: The application Docker image name
+  workspaces:
+  - name: source
+  tasks:
+  - name: terraform
+    taskRef:
+      name: terraform-git-cli
+    workspaces:
+    - name: source
+      workspace: source
+    params:
+     - name: terraform-secret
+       value: "terraform-secret"
+     - name: ARGS
+       value:
+         - plan
